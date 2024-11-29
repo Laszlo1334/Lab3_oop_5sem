@@ -1,30 +1,26 @@
 package com.example.lab3_noteapp;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.Objects;
-
 public class CreateAccountActivity extends AppCompatActivity {
 
-    EditText emailEditText, passwordEditText, confirmPasswordEditText;
+    EditText emailEditText,passwordEditText,confirmPasswordEditText;
     Button createAccountBtn;
     ProgressBar progressBar;
     TextView loginBtnTextView;
@@ -44,6 +40,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         createAccountBtn.setOnClickListener(v-> createAccount());
         loginBtnTextView.setOnClickListener(v-> finish());
 
+
     }
 
     void createAccount(){
@@ -55,7 +52,9 @@ public class CreateAccountActivity extends AppCompatActivity {
         if(!isValidated){
             return;
         }
+
         createAccountInFirebase(email,password);
+
 
     }
 
@@ -69,26 +68,18 @@ public class CreateAccountActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         changeInProgress(false);
                         if(task.isSuccessful()){
-                            //creating account is done
-                            Toast.makeText(CreateAccountActivity.this, "Succesfully create account, Check email to verify", Toast.LENGTH_SHORT).show();
-                            Objects.requireNonNull(firebaseAuth.getCurrentUser()).sendEmailVerification();
+                            //creating acc is done
+                            Utility.showToast(CreateAccountActivity.this,"Successfully create account,Check email to verify");
+                            firebaseAuth.getCurrentUser().sendEmailVerification();
                             firebaseAuth.signOut();
                             finish();
+                        }else{
+                            //failure
+                            Utility.showToast(CreateAccountActivity.this,task.getException().getLocalizedMessage());
                         }
-                        else{
-                            Toast.makeText(CreateAccountActivity.this, Objects.requireNonNull(task.getException()).getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-
-
-
-                        }
-
-
                     }
                 }
         );
-
-
-
 
 
 
@@ -96,14 +87,13 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     void changeInProgress(boolean inProgress){
         if(inProgress){
-            progressBar.setVisibility(TextView.VISIBLE);
-            createAccountBtn.setVisibility(TextView.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+            createAccountBtn.setVisibility(View.GONE);
         }else{
-            progressBar.setVisibility(TextView.GONE);
-            createAccountBtn.setVisibility(TextView.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+            createAccountBtn.setVisibility(View.VISIBLE);
         }
     }
-
 
     boolean validateData(String email,String password,String confirmPassword){
         //validate the data that are input by user.

@@ -1,5 +1,6 @@
 package com.example.lab3_noteapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.widget.Toast;
 
@@ -17,14 +18,16 @@ public class Utility {
         Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
     }
 
-//    static CollectionReference getCollectionReferenceForNotes(){
-//        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-//        return FirebaseFirestore.getInstance().collection("notes")
-//                .document(currentUser.getUid()).collection("my_notes");
-//    }
-//
-//    static String timestampToString(Timestamp timestamp){
-//        return new SimpleDateFormat("MM/dd/yyyy").format(timestamp.toDate());
-//    }
+    static CollectionReference getCollectionReferenceForNotes(){
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        assert currentUser != null;
+        return FirebaseFirestore.getInstance().collection("notes")
+                .document(currentUser.getUid()).collection("my_notes");
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    static String timestampToString(Timestamp timestamp){
+        return new SimpleDateFormat("MM/dd/yyyy").format(timestamp.toDate());
+    }
 
 }

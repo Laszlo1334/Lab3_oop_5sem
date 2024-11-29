@@ -1,14 +1,10 @@
 package com.example.lab3_noteapp;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,17 +19,15 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                if(currentUser == null){
-                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                if(currentUser==null){
+                    startActivity(new Intent(SplashActivity.this,LoginActivity.class));
                 }else{
-                    startActivity(new Intent(SplashActivity.this,CreateAccountActivity.class));
+                    startActivity(new Intent(SplashActivity.this,MainActivity.class));
                 }
                 finish();
-
             }
-        }, 1000);
+        },1000);
 
     }
 }
