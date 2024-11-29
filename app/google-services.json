@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "24031363696",
+    "project_id": "lab3noteapp",
+    "storage_bucket": "lab3noteapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24031363696:android:c56b35313508fe63432ab5",
+        "android_client_info": {
+          "package_name": "com.example.lab3_noteapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2cZmVKoZDuZEdM23l15aKyqclUCAJQ4k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
